@@ -1,0 +1,78 @@
+/* Base Reset */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:where(blockquote, body, dd, dl, figure, p, h1, h2, h3, h4, ol, ul) {
+  margin: 0;
+}
+
+:where(ol, ul) {
+  padding: 0;
+}
+
+:where(a:not([class])) {
+  text-decoration-skip-ink: auto;
+  word-wrap: anywhere;
+}
+
+:where(button, input, select, textarea) {
+  font: inherit;
+}
+
+/* Custom Reset */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+svg,
+video,
+audio {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+body {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  touch-action: manipulation;
+  text-rendering: optimizeSpeed; /* optimizeLegibility ? */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

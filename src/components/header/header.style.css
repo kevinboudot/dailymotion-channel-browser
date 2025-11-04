@@ -1,0 +1,59 @@
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 17px 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--color-muted);
+  background-color: rgb(from var(--color-bg) r g b / 0.9);
+  backdrop-filter: saturate(1.8) blur(20px);
+  will-change: transform;
+  transition: transform 300ms var(--ease-in-out);
+}
+
+.header__brand {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 10px;
+}
+
+.header__brand-title {
+  display: flex;
+  font-size: 1.4rem;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  color: var(--color-fg);
+}
+
+.header__actions {
+  display: flex;
+}
+
+.header__logo {
+  display: flex;
+  height: 100%;
+}
+
+.header__logo-img {
+  height: 100%;
+  fill: var(--color-fg);
+}
+
+@media (min-width: 640px) {
+  .header {
+    padding: 27px 0;
+  }
+
+  .header__brand {
+    align-items: flex-end;
+    gap: 0 3px;
+  }
+
+  .header__brand-title {
+    font-size: 1.9rem;
+    line-height: 1.4rem;
+  }
+}

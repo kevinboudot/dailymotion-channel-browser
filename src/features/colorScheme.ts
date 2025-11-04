@@ -1,7 +1,7 @@
 import { COLOR_SCHEME_STORAGE_KEY } from '@/constants';
 import type { AppFeature, ColorScheme } from '@/types';
 
-interface ColorSchemeFeature extends AppFeature {
+export interface ColorSchemeFeature extends AppFeature {
   toggleColorScheme: () => void;
 }
 

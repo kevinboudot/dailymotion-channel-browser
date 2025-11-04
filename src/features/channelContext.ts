@@ -7,7 +7,7 @@ import {
 import type { AppFeature, VideosResponse } from '@/types';
 import DailymotionService from '@/services/dailymotion';
 
-interface ChannelContextFeature extends AppFeature {
+export interface ChannelContextFeature extends AppFeature {
   loadMoreVideos: () => void;
   onVideosLoaded: (fn: (videos: VideosResponse) => void) => void;
 }

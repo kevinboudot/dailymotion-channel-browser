@@ -5,7 +5,7 @@ import { CardComponent } from '@/components/gallery/card';
 import Template from './gallery.tpl.html?raw';
 import './gallery.style.css';
 
-interface GalleryComponent extends AppComponent {
+export interface GalleryComponent extends AppComponent {
   loadMore: () => void;
   onVideoRequested: (fn: (data: VideoDto) => void) => void;
   onVideosPageRequested: (fn: () => void) => void;
@@ -54,7 +54,7 @@ export function GalleryComponent(): GalleryComponent {
       const item = videos.list[i];
       card.onCardOpen((data) => handleVideoRequested(data));
       if (card && item) {
-        card.mount?.(item);
+        card.mount(item);
       }
     }
 
@@ -62,7 +62,7 @@ export function GalleryComponent(): GalleryComponent {
     if (cardsToMount < lastCards.length || numVideos === 0) {
       for (let i = cardsToMount; i < lastCards.length; i++) {
         const card = lastCards[i];
-        card.destroy?.();
+        card.destroy();
         const idx = cards.indexOf(card);
         if (idx !== -1) {
           cards.splice(idx, 1);
@@ -97,8 +97,8 @@ export function GalleryComponent(): GalleryComponent {
   const destroy = () => {
     $findAnotherChannel.removeEventListener('click', findAnotherChannel);
     $loadMore.removeEventListener('click', loadMore);
-    for (const card of cards) card.destroy?.();
-    $el?.remove();
+    for (const card of cards) card.destroy();
+    $el.remove();
   };
 
   return { $el, mount, destroy, loadMore, onVideoRequested, onVideosPageRequested, appendVideos };

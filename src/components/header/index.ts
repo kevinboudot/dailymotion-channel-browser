@@ -3,7 +3,7 @@ import { createElementFromHTML } from '@/utils';
 import Template from './header.tpl.html?raw';
 import './header.style.css';
 
-interface HeaderComponent extends AppComponent {
+export interface HeaderComponent extends AppComponent {
   onColorSchemeToggle: (fn: () => void) => void;
 }
 
@@ -35,7 +35,7 @@ export function HeaderComponent(): HeaderComponent {
     $brandLogo.removeEventListener('click', onBrandClick);
     $brandTitle.removeEventListener('click', onBrandClick);
     $colorSchemeToggle.removeEventListener('click', onColorSchemeToggleClick);
-    $el?.remove();
+    $el.remove();
   };
 
   return { $el, mount, destroy, onColorSchemeToggle };

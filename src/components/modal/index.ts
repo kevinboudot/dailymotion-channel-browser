@@ -4,7 +4,7 @@ import DailymotionService from '@/services/dailymotion';
 import Template from './modal.tpl.html?raw';
 import './modal.style.css';
 
-interface ModalComponent extends AppComponent {
+export interface ModalComponent extends AppComponent {
   open: (video: VideoDto) => void;
   close: () => void;
 }
@@ -61,7 +61,7 @@ export function ModalComponent(): ModalComponent {
       currentPlayer.destroy();
       currentPlayer = null;
     }
-    $el?.remove();
+    $el.remove();
   };
 
   return { $el, mount, destroy, open, close };

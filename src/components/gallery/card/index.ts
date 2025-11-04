@@ -4,8 +4,8 @@ import { createElementFromHTML, nextTick } from '@/utils';
 import Template from './card.tpl.html?raw';
 import './card.style.css';
 
-interface CardComponent extends Omit<AppComponent, 'mount'> {
-  mount?: (item: VideoDto) => Promise<void>;
+export interface CardComponent extends Omit<AppComponent, 'mount'> {
+  mount: (item: VideoDto) => Promise<void>;
   onCardOpen: (fn: (data: VideoDto) => void) => void;
 }
 
@@ -24,19 +24,20 @@ export function CardComponent(index: number): CardComponent {
    * Uses responsive images with srcset for optimal performance across devices.
    */
   const preloadAndSwap = async () => {
+    if (!data) return;
     $img = new Image();
     $img.classList.add('card__img', 'no-select');
     // Apply vertical layout class for portrait videos
-    if (data?.aspect_ratio && data.aspect_ratio < 1) $el?.classList.add('card--vertical');
+    if (data.aspect_ratio < 1) $el.classList.add('card--vertical');
 
-    $img.src = data?.thumbnail_360_url || data?.thumbnail_url || '';
+    $img.src = data.thumbnail_360_url || data.thumbnail_url;
     // Build responsive srcset: browser selects appropriate size based on viewport
     $img.srcset = [
-      data?.thumbnail_180_url && `${data.thumbnail_180_url} 320w`,
-      data?.thumbnail_360_url && `${data.thumbnail_360_url} 640w`,
-      data?.thumbnail_480_url && `${data.thumbnail_480_url} 853w`,
-      data?.thumbnail_720_url && `${data.thumbnail_720_url} 1280w`,
-      data?.thumbnail_1080_url && `${data.thumbnail_1080_url} 1920w`,
+      data.thumbnail_180_url && `${data.thumbnail_180_url} 320w`,
+      data.thumbnail_360_url && `${data.thumbnail_360_url} 640w`,
+      data.thumbnail_480_url && `${data.thumbnail_480_url} 853w`,
+      data.thumbnail_720_url && `${data.thumbnail_720_url} 1280w`,
+      data.thumbnail_1080_url && `${data.thumbnail_1080_url} 1920w`,
     ]
       .filter(Boolean)
       .join(', ');
@@ -44,7 +45,7 @@ export function CardComponent(index: number): CardComponent {
     // 3-column layout ≥640px (max 360px per column), single column otherwise
     $img.sizes = '(min-width: 640px) min(33vw, 360px), 100vw';
 
-    $img.alt = data?.title || '';
+    $img.alt = data.title || '';
     // Note: Not using lazy loading since IntersectionObserver handles visibility
     // $img.loading = 'lazy';
     // Prioritize first N images for faster initial render
@@ -60,7 +61,7 @@ export function CardComponent(index: number): CardComponent {
     }
 
     // Remove skeleton after image transition comletes
-    $img.addEventListener('transitionend', () => $skeleton?.remove());
+    $img.addEventListener('transitionend', () => $skeleton.remove());
 
     await nextTick();
     $el.appendChild($img as Node);
@@ -68,7 +69,7 @@ export function CardComponent(index: number): CardComponent {
     observer.unobserve($el);
 
     await nextTick();
-    $el?.classList.add('card--loaded');
+    $el.classList.add('card--loaded');
   };
 
   /**
@@ -94,7 +95,7 @@ export function CardComponent(index: number): CardComponent {
 
   const mount = async (item: VideoDto) => {
     data = item;
-    $title.textContent = data?.title || '';
+    $title.textContent = item.title;
     observer.observe($el);
     $el.addEventListener('click', onCardClick);
   };
@@ -102,7 +103,7 @@ export function CardComponent(index: number): CardComponent {
   const destroy = () => {
     observer.unobserve($el);
     $el.removeEventListener('click', onCardClick);
-    $el?.remove();
+    $el.remove();
   };
 
   return { $el, mount, destroy, onCardOpen };

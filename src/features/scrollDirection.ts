@@ -1,7 +1,7 @@
 import { SCROLL_DIRECTION_THRESHOLD } from '@/constants';
 import type { AppFeature, ScrollDirection } from '@/types';
 
-type ScrollDirectionFeature = AppFeature;
+export type ScrollDirectionFeature = AppFeature;
 
 const CLASSNAME_UP = 'scroll-up';
 const CLASSNAME_DOWN = 'scroll-down';

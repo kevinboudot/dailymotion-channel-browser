@@ -1,8 +1,8 @@
 export type QueryParams = Record<string, string | number | boolean | null | undefined>;
 
 export interface AppFeature {
-  mount?: () => void;
-  destroy?: () => void;
+  mount: () => void;
+  destroy: () => void;
 }
 
 export interface AppComponent extends AppFeature {
